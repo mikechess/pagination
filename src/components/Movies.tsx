@@ -31,7 +31,7 @@ const Movies = () => {
 
   return (
     <MoviesWrapper>
-        <h1>TSX-flix Prime</h1>
+        <h1>Pagination Movie App Demo</h1>
         <div className="movieCard">
             {showItems.map((items) => {
                 return (
