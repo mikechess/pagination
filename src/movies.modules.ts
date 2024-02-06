@@ -57,4 +57,32 @@ export const MoviesWrapper = styled.div`
             color: grey;
         }
     }
+
+    .buttons {
+        margin-top: 3rem;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 100%;
+
+        > button {
+            font-size: 15px;
+            background: #f76429;
+            border: none;
+            outline: none;
+            color: white;
+            font-style: 18px;
+            font-weight: 500;
+            padding: 4px 16px;
+            border-radius: 5px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease-in-out;
+
+            &:hover {
+                background-color: #007bff;
+                cursor: pointer;
+                transform: scale(1.1);
+            }
+        }
+    }
 `

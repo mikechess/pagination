@@ -14,20 +14,40 @@ const Movies = () => {
 
     const [showItems, setShowItems] = useState<MovieTypes[]>([]);
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+
     useEffect(() => {
         const fetchMovies = async () => {
             try {
-                const response = await axios.get(`${discoverEndpoint}?api_key=${apiKey}`);
-                const {results} = response.data;
+                const response = await axios.get(`${discoverEndpoint}?api_key=${apiKey}`,
+                {
+                    params: {
+                        page:currentPage
+                    }
+                }
+                );
+                const {results, total_pages} = response.data;
                 setShowItems(results);
-                console.log(results);
+                setTotalPages(total_pages);
             } catch (error) {
                 console.log("Something Went Wrong, Try Again", error);
             }
         }
 
         fetchMovies();
-    }, [])
+    }, [currentPage]);
+
+    const prevPage = () => {
+        if(currentPage > 1) {
+            setCurrentPage((prev) => prev - 1);
+        }
+    }
+    const nextPage = () => {
+        if(currentPage < totalPages) {
+            setCurrentPage((next) => next + 1);
+        }
+    }
 
   return (
     <MoviesWrapper>
@@ -48,6 +68,17 @@ const Movies = () => {
                     </div>
                 )
             })}
+        </div>
+        <div className="buttons">
+            {currentPage > 1 && (
+                <button className='btnPrev' onClick={prevPage}>Back</button>
+            )}
+
+            <p>Page | {currentPage}</p>
+
+            {currentPage < totalPages && (
+                <button className='btnNext' onClick={nextPage}>Next</button>
+            )}
         </div>
     </MoviesWrapper>
   )
